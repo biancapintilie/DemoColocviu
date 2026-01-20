@@ -21,6 +21,14 @@
     <EditText android:id="@+id/input3_edit_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Input 3 (Ex: Operator)"/>
 
     <Button android:id="@+id/action_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Execute Request"/>
+    <Button
+        android:id="@+id/btn_open_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Map"
+        android:backgroundTint="#FF5722"
+        android:layout_marginTop="20dp"/>
 
     <TextView android:id="@+id/result_text_view" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:textSize="20sp" android:text="Result..."/>
+
 </LinearLayout>

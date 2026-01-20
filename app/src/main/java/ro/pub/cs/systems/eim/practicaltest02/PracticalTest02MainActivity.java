@@ -10,6 +10,8 @@ import android.widget.Toast;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 
 public class PracticalTest02MainActivity extends AppCompatActivity {
 
@@ -25,6 +27,19 @@ public class PracticalTest02MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practical_test02_main);
+
+        // 1. Gasim butonul dupa ID-ul pus in XML
+        Button btnOpenMap = findViewById(R.id.btn_open_map);
+
+        // 2. Ii spunem ce sa faca la click
+        btnOpenMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Aici cream intentia de a trece la pagina MapsActivity
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Legam elementele din XML
         serverPort = findViewById(R.id.server_port);
