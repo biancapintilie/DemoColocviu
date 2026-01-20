@@ -11,6 +11,7 @@ import java.util.List;
 
 // Importuri pentru HTTP (Vreme, Autocomplete, Bitcoin)
 import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.ResponseHandler;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.impl.client.BasicResponseHandler;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
@@ -112,4 +113,78 @@ public class CommunicationThread extends Thread {
             Log.e("PracticalTest02", "Error: " + ioException.getMessage());
         }
     }
+
+//@Override
+//public void run() {
+//    if (socket == null) return;
+//    try {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//        PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
+//
+//        String oras = br.readLine(); // p1
+//        String informatieSolicitata = br.readLine(); // p2 (ex: "all", "temp")
+//        String p3 = br.readLine(); // ignorat la acest subiect
+//
+//        if (oras == null || oras.isEmpty()) {
+//            pw.println("Eroare: Orasul nu a fost specificat.");
+//            socket.close();
+//            return;
+//        }
+//
+//        String result = "";
+//
+//        // 1. Verificăm în Cache (Cerința 3.a din subiect)
+//        String dataDinCache = serverThread.getData(oras);
+//        if (dataDinCache != null) {
+//            Log.i("PracticalTest02", "[SERVER] Informația a fost găsită în cache.");
+//            result = parseazaSauReturneaza(dataDinCache, informatieSolicitata);
+//        } else {
+//            // 2. Dacă nu e în cache, accesăm serviciul Internet (Cerința 3.b) [cite: 53]
+//            Log.i("PracticalTest02", "[SERVER] Accesare serviciu Internet pentru: " + oras);
+//            try {
+//                HttpClient httpClient = new DefaultHttpClient();
+//                // Cheia și URL-ul din subiect [cite: 40, 41]
+//                String url = "https://api.openweathermap.org/data/2.5/weather?q=" + oras + "&appid=e03c3b32cfb5a6f7069f2ef29237d87e&units=metric";
+//
+//                HttpGet httpGet = new HttpGet(url);
+//                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+//                String pageSourceCode = httpClient.execute(httpGet, responseHandler);
+//
+//                // Salvăm în cache pentru viitor [cite: 43]
+//                serverThread.setData(oras, pageSourceCode);
+//
+//                result = parseazaSauReturneaza(pageSourceCode, informatieSolicitata);
+//            } catch (Exception e) {
+//                Log.e("PracticalTest02", "Eroare la request HTTP: " + e.getMessage());
+//                result = "Eroare la preluarea datelor de pe internet.";
+//            }
+//        }
+//
+//        // 3. Trimitem răspunsul către client [cite: 55]
+//        pw.println(result);
+//        socket.close();
+//
+//    } catch (IOException e) {
+//        Log.e("PracticalTest02", "Error: " + e.getMessage());
+//    }
+//}
+//
+//    // Metodă utilă pentru a extrage doar ce cere userul (temp, wind, all etc.) [cite: 44, 48]
+//    private String parseazaSauReturneaza(String jsonRaw, String info) {
+//        if (info == null || info.equalsIgnoreCase("all")) {
+//            return jsonRaw; // Returnăm tot dacă se cere "all" [cite: 48]
+//        }
+//        try {
+//            JSONObject content = new JSONObject(jsonRaw);
+//            if (info.equalsIgnoreCase("temperature")) {
+//                return content.getJSONObject("main").getString("temp");
+//            } else if (info.equalsIgnoreCase("humidity")) {
+//                return content.getJSONObject("main").getString("humidity");
+//            }
+//            // Poți adăuga restul: wind_speed, condition, pressure [cite: 44]
+//            return jsonRaw;
+//        } catch (Exception e) {
+//            return jsonRaw;
+//        }
+//    }
 }
